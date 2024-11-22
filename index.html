@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConnectFour</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://pornhub.com" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+    
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
@@ -15,9 +16,24 @@
     </header>
     <main class="content">
         <div id="gameGrid">
-            <!-- Griglia di gioco composta da 7 colonne e 5 righe -->
-            
-
+            <div class="clickable-area">
+                <div data-add-piece-id="0"></div>
+                <div data-add-piece-id="1"></div>
+                <div data-add-piece-id="2"></div>
+                <div data-add-piece-id="3"></div>
+                <div data-add-piece-id="4"></div>
+                <div data-add-piece-id="5"></div>
+                <div data-add-piece-id="6"></div>
+            </div>
+            <div class="columns">
+                <div data-column-id="0"></div>
+                <div data-column-id="1"></div>
+                <div data-column-id="2"></div>
+                <div data-column-id="3"></div>
+                <div data-column-id="4"></div>
+                <div data-column-id="5"></div>
+                <div data-column-id="6"></div>
+            </div>
         </div>
     </main>
 </body>
