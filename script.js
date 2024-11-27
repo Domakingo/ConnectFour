@@ -2,8 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickableAreas = document.querySelectorAll('.clickable-area div');
     const animationStates = Array(7).fill(false);
     const maxPieces = 5;
-    const pieceHeight = 101.382;
+    const pieceContainerHeight = document.querySelector('.columns div').getBoundingClientRect().height / 5;
     const animationDuration = 1;
+    let currentPlayer = 'blue';
 
     clickableAreas.forEach((area, index) => {
         area.addEventListener('click', () => {
@@ -30,9 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newPiece = document.createElement('div');
         newPiece.classList.add('piece');
+        newPiece.style.backgroundColor = currentPlayer === 'blue' ? '#3f51b5' : '#f44336';
         document.body.appendChild(newPiece);
-
-        newPiece.style.width = '50px';
 
         const startRect = startArea.getBoundingClientRect();
         const columnRect = column.getBoundingClientRect();
@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialLeft = columnRect.left + columnRect.width / 2 - newPiece.offsetWidth / 2;
 
         const targetPosition = piecesInColumn.length;
-        const finalTop =
-            columnRect.top + columnRect.height - (targetPosition + 1) * pieceHeight;
+        const finalTop = columnRect.top + columnRect.height - (targetPosition + 1) * pieceContainerHeight;
 
         newPiece.style.position = 'absolute';
         newPiece.style.top = `${initialTop}px`;
@@ -62,6 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
             column.appendChild(newPiece);
 
             animationStates[columnIndex] = false;
+            togglePlayer();
         });
+    }
+
+    function togglePlayer() {
+        currentPlayer = currentPlayer === 'blue' ? 'red' : 'blue';
     }
 });
