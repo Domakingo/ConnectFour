@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const clickableAreas = document.querySelectorAll('.clickable-area div');
-    const animationStates = Array(7).fill(false); // Stato animazione per ciascuna colonna
-    const maxPieces = 5; // Numero massimo di pezzi per colonna
-    const pieceHeight = 105; // Altezza di ciascun pezzo
-    const animationSpeed = 300; // Velocità in pixel per secondo
+    const animationStates = Array(7).fill(false);
+    const maxPieces = 5;
+    const pieceHeight = 101.382;
+    const animationDuration = 1;
 
     clickableAreas.forEach((area, index) => {
         area.addEventListener('click', () => {
-            if (animationStates[index]) return; // Blocca nuovi click durante l'animazione
+            if (animationStates[index]) return;
 
             const column = document.querySelector(`.columns div[data-column-id="${index}"]`);
             if (column) {
@@ -26,48 +26,41 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Blocca ulteriori azioni sulla colonna durante l'animazione
         animationStates[columnIndex] = true;
 
-        // Creazione del nuovo pezzo
         const newPiece = document.createElement('div');
         newPiece.classList.add('piece');
-        document.body.appendChild(newPiece); // Aggiunge il pezzo direttamente al body per il posizionamento assoluto
+        document.body.appendChild(newPiece);
 
-        // Calcola la posizione iniziale e finale
+        newPiece.style.width = '50px';
+
         const startRect = startArea.getBoundingClientRect();
-        const gridRect = column.parentNode.getBoundingClientRect();
+        const columnRect = column.getBoundingClientRect();
 
         const initialTop = startRect.top;
-        const initialLeft = startRect.left + startRect.width / 2 - newPiece.offsetWidth / 2; // Centrato rispetto al div cliccato
+        const initialLeft = columnRect.left + columnRect.width / 2 - newPiece.offsetWidth / 2;
 
         const targetPosition = piecesInColumn.length;
         const finalTop =
-            gridRect.top + gridRect.height - (targetPosition + 1) * pieceHeight; // Posizione finale nella colonna
+            columnRect.top + columnRect.height - (targetPosition + 1) * pieceHeight;
 
-        // Posiziona il pezzo nella posizione iniziale
         newPiece.style.position = 'absolute';
         newPiece.style.top = `${initialTop}px`;
         newPiece.style.left = `${initialLeft}px`;
 
-        // Calcola la durata dell'animazione
         const distance = finalTop - initialTop;
-        const animationDuration = Math.abs(distance / animationSpeed); // Tempo in secondi
 
-        // Aggiungi la transizione
         newPiece.style.transition = `transform ${animationDuration}s ease-in-out`;
-        newPiece.style.transform = `translate(${finalTop - initialTop}px)`;
+        newPiece.style.transform = `translateY(${distance}px)`;
 
-        // Finalizzazione del posizionamento dopo l'animazione
         newPiece.addEventListener('transitionend', () => {
-            newPiece.style.transition = ''; // Rimuove la transizione
-            newPiece.style.transform = ''; // Resetta la trasformazione
-            newPiece.style.position = 'relative'; // Adatta alla colonna
-            newPiece.style.top = ''; // Resetta lo stile
-            newPiece.style.left = ''; // Resetta lo stile
-            column.appendChild(newPiece); // Sposta definitivamente il pezzo nella colonna
+            newPiece.style.transition = '';
+            newPiece.style.transform = '';
+            newPiece.style.position = 'relative';
+            newPiece.style.top = '';
+            newPiece.style.left = '';
+            column.appendChild(newPiece);
 
-            // Sblocca la colonna
             animationStates[columnIndex] = false;
         });
     }

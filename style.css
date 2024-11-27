@@ -10,7 +10,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f5f5f5;
     color: #333;
-    overflow: hidden; /* Evita scrolling verticale non necessario */
+    overflow: hidden;
 }
 
 /* Header */
@@ -28,9 +28,9 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 80px); /* Altezza totale meno l'header */
+    height: calc(100vh - 80px); /* - header */
     padding: 0 6rem;
-    gap: 40px; /* Spaziatura tra griglia e giocatori */
+    gap: 40px;
 }
 
 /* Griglia di gioco */
@@ -86,35 +86,32 @@ header {
 
 .columns div {
     display: flex;
-    flex-direction: column-reverse; /* Accumula pedine dal basso */
+    flex-direction: column-reverse;
     justify-content: flex-start;
     align-items: center;
     height: 100%;
     position: relative;
-    background-color: #e8e8e8;
-    border-radius: 10px;
-    border: 2px solid #ccc;
 }
 
 /* Pedine */
 .piece {
     width: 90px !important;
     height: 90px !important;
-    margin-bottom: 10px; /* Spaziatura tra pedine */
+    margin-bottom: 10px;
     border-radius: 50% !important;
     background-color: #3f51b5;
-    position: absolute; /* Per l'animazione iniziale */
-    z-index: 10; /* Assicurarsi che siano visibili */
+    position: absolute;
+    z-index: 10;
     transition: transform 0.5s ease-in-out;
 }
 
 /* Animazione fluida */
 @keyframes drop {
     from {
-        transform: translateY(0); /* Partenza dalla posizione iniziale */
+        transform: translateY(0);
     }
     to {
-        transform: translateY(100%); /* Movimento verso il fondo */
+        transform: translateY(100%);
     }
 }
 
