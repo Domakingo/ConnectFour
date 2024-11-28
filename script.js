@@ -2,16 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickableAreas = document.querySelectorAll('.clickable-area div');
     const animationStates = Array(7).fill(false);
     const maxPieces = 5;
-    const pieceContainerHeight = document.querySelector('.columns div').getBoundingClientRect().height / 5;
     const animationDuration = 1;
     let currentPlayer = 'blue';
+    let allowMove = true;
 
     clickableAreas.forEach((area, index) => {
         area.addEventListener('click', () => {
             if (animationStates[index]) return;
 
             const column = document.querySelector(`.columns div[data-column-id="${index}"]`);
-            if (column) {
+            if (column && allowMove) {
+                allowMove = false;
                 spawnPiece(area, column, index);
             } else {
                 console.error(`Column with ID ${index} not found.`);
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function spawnPiece(startArea, column, columnIndex) {
         const piecesInColumn = column.children;
+        const pieceContainerHeight = column.getBoundingClientRect().height / maxPieces;
 
         if (piecesInColumn.length >= maxPieces) {
             console.warn(`Column ${columnIndex} is full.`);
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             column.appendChild(newPiece);
 
             animationStates[columnIndex] = false;
+            allowMove = true;
             togglePlayer();
         });
     }
