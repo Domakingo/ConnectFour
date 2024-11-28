@@ -22,6 +22,14 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.titleGradient {
+    font-size: 2em;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #3f51b5, #f44336);
+    background-clip: text;
+    color: transparent;
+}
+
 /* Contenitore principale */
 .content {
     display: flex;
@@ -146,4 +154,121 @@ header {
 
 .noSelect:focus {
     outline: none !important;
+}
+
+body.night-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header.night-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+#gameGrid.night-mode {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+.clickable-area div.night-mode {
+    border-color: #555;
+    background-color: #333 !important;
+}
+
+.columns.night-mode {
+    background-color: #2e2e2e;
+}
+
+.player.night-mode {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+.player.night-mode h2 {
+    color: #eee;
+}
+
+/* Night Mode Checkbox */
+.night-mode-button {
+    background-color: #333;
+    border: none;
+    border-radius: 50px;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.night-mode-button .fas {
+    color: #f1c40f;
+}
+
+body.night-mode .night-mode-button {
+    background-color: #fff;
+}
+
+body.night-mode .night-mode-button .fas {
+    color: #f39c12;
+}
+
+/* Result card */
+.result-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1.5px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+    width: 300px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+body.night-mode .result-card {
+    background-color: #1e1e1e;
+    border-color: #ddd;
+    color: #eee;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-trasparente per oscurare */
+    z-index: 99; /* Inferiore alla result card */
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.winnerPic {
+    width: 125px;
+    height: 125px;
+    background-color: #fff;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 5px solid gold;
+    margin-top: 5px;
 }
