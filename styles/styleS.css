@@ -1,0 +1,66 @@
+/* Header */
+header {
+    padding: 10px 0;
+    font-size: 1.5em;
+}
+
+/* Contenitore principale */
+.content {
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 0 6rem;
+    gap: 25px;
+}
+
+/* Griglia di gioco */
+#gameGrid {
+    width: 350px;
+    height: 340px;
+    padding: 15px;
+}
+
+.clickable-area div { 
+    height: 40px;
+    width: 40px;
+    margin-bottom: 10px;
+    border-width: 2.5px;
+}
+
+/* Pedine */
+.piece {
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 7px;
+}
+
+/* Players */
+.player {
+    min-width: 200px;
+    height: 50px;
+}
+
+.proPic, .proPicArrpheus {
+    width: 75px;
+    height: 75px;
+    top: -25%;
+}
+
+.proPic {
+    left: -20%;
+}
+
+.proPicArrpheus {
+    right: -20%;
+}
+
+.player h2 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.player p {
+    font-size: 1em;
+    color: #777;
+    margin-bottom: 10px;
+}

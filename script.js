@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    playerIcon();
+
     const clickableAreas = document.querySelectorAll('.clickable-area div');
     const animationStates = Array(7).fill(false);
     const maxPieces = 5;
@@ -20,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function playerIcon() {
+        const randomNumber = Math.floor(Math.random() * 1002);
+        const fileName = `./assets/img/playerPics/${randomNumber}.png`;
+        
+        const proPic = document.querySelector('.proPic');
+        proPic.style.backgroundImage = `url('${fileName}')`;
+    }
+
     function spawnPiece(startArea, column, columnIndex) {
         const piecesInColumn = column.children;
         const pieceContainerHeight = column.getBoundingClientRect().height / maxPieces;
@@ -34,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newPiece = document.createElement('div');
         newPiece.classList.add('piece');
         newPiece.style.backgroundColor = currentPlayer === 'blue' ? '#3f51b5' : '#f44336';
+        newPiece.style.boxShadow = `0px 0px 0px 5px ${currentPlayer === 'blue' ? '#3c4787' : '#963029'} inset`;      
         document.body.appendChild(newPiece);
 
         const startRect = startArea.getBoundingClientRect();
