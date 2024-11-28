@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
     <title>ConnectFour</title>
 
-    <link rel="stylesheet" href="./styles/main.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
 
     <!-- CSS per schermi piccoli (smartphone) -->
-    <link rel="stylesheet" href="./styles/styleS.css" media="only screen and (max-width: 600px)">
+    <link rel="stylesheet" href="styles/styleS.css" media="only screen and (max-width: 600px)">
     
     <!-- CSS per schermi medi (tablet) -->
-    <link rel="stylesheet" href="./styles/styleM.css" media="only screen and (min-width: 601px) and (max-width: 1023px)">
+    <link rel="stylesheet" href="styles/styleM.css" media="only screen and (min-width: 601px) and (max-width: 1023px)">
     
     <!-- CSS per schermi grandi (desktop) -->
-    <link rel="stylesheet" href="./styles/styleL.css" media="only screen and (min-width: 1024px)">
+    <link rel="stylesheet" href="styles/styleL.css" media="only screen and (min-width: 1024px)">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
-    <script src="script.js"></script>
+
+    <!-- Script -->
+    <script src="script/script.js"></script>
 </head>
 <body>
     <header>
@@ -28,7 +31,7 @@
         <div class="player" id="player1">
             <div class="proPic"></div>
             <h2>Player 1</h2>
-            <p>Score: <span id="score1">0</span></p>
+            <p>Score: <span id="playerScore">0</span></p>
         </div>
 
         <div id="gameGrid">
@@ -55,7 +58,7 @@
         <div class="player" id="cpu">
             <div class="proPicArrpheus"></div>
             <h2>CPU</h2>
-            <p>Score: <span id="score2">0</span></p>
+            <p>Score: <span id="CPUScore">0</span></p>
         </div>
     </main>
 </body>

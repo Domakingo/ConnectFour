@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const animationStates = Array(7).fill(false);
     const maxPieces = 5;
     const animationDuration = 1;
-    let currentPlayer = 'blue';
+    let currentPlayer = 'player';
     let allowMove = true;
+    let grid = Array(7).fill(null).map(() => Array(maxPieces).fill(null));
+    let scores = { player: 0, CPU: 0 };
 
     const pieceCreated = new Audio('assets/audio/sfx/pieceCreated.wav');
     const piecePlaced = new Audio('assets/audio/sfx/piecePlaced.wav');
@@ -38,17 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const piecesInColumn = column.children;
         const pieceContainerHeight = column.getBoundingClientRect().height / maxPieces;
 
-        if (piecesInColumn.length >= maxPieces) {
-            console.warn(`Column ${columnIndex} is full.`);
-            return;
-        }
-
         animationStates[columnIndex] = true;
 
         const newPiece = document.createElement('div');
         newPiece.classList.add('piece');
-        newPiece.style.backgroundColor = currentPlayer === 'blue' ? '#3f51b5' : '#f44336';
-        newPiece.style.boxShadow = `0px 0px 0px 5px ${currentPlayer === 'blue' ? '#3c4787' : '#963029'} inset`;      
+        newPiece.style.backgroundColor = currentPlayer === 'player' ? '#3f51b5' : '#f44336';
+        newPiece.style.boxShadow = `0px 0px 0px 5px ${currentPlayer === 'player' ? '#3c4787' : '#963029'} inset`;      
         document.body.appendChild(newPiece);
 
         const startRect = startArea.getBoundingClientRect();
@@ -77,14 +74,67 @@ document.addEventListener('DOMContentLoaded', () => {
             newPiece.style.left = '';
             column.appendChild(newPiece);
 
+            grid[columnIndex][targetPosition] = currentPlayer;
+            if (checkVictory(columnIndex, targetPosition)) {
+                alert(`${currentPlayer} wins!`);
+                scores[currentPlayer]++;
+                resetGame();
+            } else {
+                togglePlayer();
+            }
+
+            if (piecesInColumn.length >= maxPieces) {
+                startArea.classList.add('disabled');
+            }
+
             animationStates[columnIndex] = false;
             allowMove = true;
             piecePlaced.play();
-            togglePlayer();
         });
     }
 
     function togglePlayer() {
-        currentPlayer = currentPlayer === 'blue' ? 'red' : 'blue';
+        currentPlayer = currentPlayer === 'player' ? 'CPU' : 'player';
+    }
+
+    function checkVictory(x, y) {
+        return checkDirection(x, y, 1, 0) || // Horizontal
+               checkDirection(x, y, 0, 1) || // Vertical
+               checkDirection(x, y, 1, 1) || // Diagonal /
+               checkDirection(x, y, 1, -1);  // Diagonal \
+    }
+
+    function checkDirection(x, y, dx, dy) {
+        let count = 1;
+        count += countPieces(x, y, dx, dy);
+        count += countPieces(x, y, -dx, -dy);
+        return count >= 4;
+    }
+
+    function countPieces(x, y, dx, dy) {
+        let count = 0;
+        let player = grid[x][y];
+        for (let step = 1; step < 4; step++) {
+            const nx = x + step * dx;
+            const ny = y + step * dy;
+            if (nx >= 0 && nx < grid.length && ny >= 0 && ny < maxPieces && grid[nx][ny] === player) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    function resetGame() {
+        grid = Array(7).fill(null).map(() => Array(maxPieces).fill(null));
+        document.querySelectorAll('.piece').forEach(piece => piece.remove());
+
+        document.querySelectorAll('.clickable-area div').forEach(area => {
+            area.classList.remove('disabled');
+        });
+
+        document.querySelector('#playerScore').textContent = scores.player;
+        document.querySelector('#CPUScore').textContent = scores.CPU;
     }
 });
