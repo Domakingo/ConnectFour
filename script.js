@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = 'blue';
     let allowMove = true;
 
+    const pieceCreated = new Audio('assets/audio/sfx/pieceCreated.wav');
+    const piecePlaced = new Audio('assets/audio/sfx/piecePlaced.wav');
+
     clickableAreas.forEach((area, index) => {
         area.addEventListener('click', () => {
             if (animationStates[index]) return;
@@ -15,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const column = document.querySelector(`.columns div[data-column-id="${index}"]`);
             if (column && allowMove) {
                 allowMove = false;
+                pieceCreated.play();
                 spawnPiece(area, column, index);
             } else {
                 console.error(`Column with ID ${index} not found.`);
@@ -24,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playerIcon() {
         const randomNumber = Math.floor(Math.random() * 1002);
-        const fileName = `./assets/img/playerPics/${randomNumber}.png`;
+        const fileName = `assets/img/playerPics/${randomNumber}.png`;
         
         const proPic = document.querySelector('.proPic');
         proPic.style.backgroundImage = `url('${fileName}')`;
@@ -75,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             animationStates[columnIndex] = false;
             allowMove = true;
+            piecePlaced.play();
             togglePlayer();
         });
     }
